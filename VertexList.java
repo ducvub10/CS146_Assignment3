@@ -3,13 +3,16 @@
 
 public class VertexList {
     VertexNode head;
-    
-    public VertexList (VertexNode head){
-        this.head = head;
-    }
+
+    public VertexList(){}
 
     //find or make a node with id i, then return vertex
     public Vertex findOrMake(int i) {
+        if (head == null){
+            Vertex newVertex = new Vertex(i, 'w', null, new VertexList());
+            this.head = new VertexNode(newVertex, null);
+            return newVertex;
+        }
         VertexNode travNode = head;
         while (travNode != null){
             if (travNode.vertex.id == i){
@@ -22,7 +25,7 @@ public class VertexList {
                 travNode = travNode.next;
             }
         }
-        Vertex newVertex = new Vertex(i, 'w', null, null);
+        Vertex newVertex = new Vertex(i, 'w', null, new VertexList());
         travNode.next = new VertexNode(newVertex, null);
         return newVertex;
 }

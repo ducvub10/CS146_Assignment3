@@ -1,17 +1,23 @@
 
 public class Graph {
 public VertexList vertices;
-public static Graph readFromString(String input) {
-    //iterate through input
+
+public Graph() {
+    this.vertices = new VertexList();
+}
+
+public static Graph readFromString(String input) { //tested
+    //split into edges  
     Graph graph = new Graph();
-    graph.vertices = new VertexList(new VertexNode(null, null));
 
-    //translate string to graph
-    String[] edges = input.split(";"); // split symbol
+    
+    String[] edges = input.split(";"); 
 
-
+    
     for(int j = 0; j < edges.length; j++){
-        String[] parts = edges[j].split(","); //the split symbol
+        //split edges to vertexes
+        String[] parts = edges[j].split(","); 
+        //add vertexes to graph
         Vertex currentVertex = graph.vertices.findOrMake(Integer.parseInt(parts[0]));
         currentVertex.adj.findOrMake(Integer.parseInt(parts[1]));
     }
@@ -23,7 +29,7 @@ public void addEdge(int i, int j) {
     this.vertices.findOrMake(i).adj.findOrMake(j);
 }
 
-public String writeToString() {
+public String writeToString() { //tested
     VertexNode travNode = vertices.head;
     String result = "";
 
@@ -39,8 +45,11 @@ public String writeToString() {
             }
             travNode2 = travNode2.next;
         }
+        if (travNode.next != null){
         smallResult += ";";
+        }
         result += smallResult; 
+        travNode = travNode.next;
     }
     
     return result;
